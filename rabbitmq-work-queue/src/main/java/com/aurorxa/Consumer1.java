@@ -31,6 +31,11 @@ public class Consumer1 {
             System.out.println("consumerTag = " + consumerTag);
             System.out.println("消费者1 消费的 message = " + new String(message.getBody(), StandardCharsets.UTF_8));
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             // 第一个参数：消息的标记
             // 第二个参数：不批量
             channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
