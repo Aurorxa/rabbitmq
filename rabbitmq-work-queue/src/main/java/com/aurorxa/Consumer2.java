@@ -32,6 +32,16 @@ public class Consumer2 {
             System.out.println("consumerTag = " + consumerTag);
             System.out.println("消费者2 消费的 message = " + new String(message.getBody(), StandardCharsets.UTF_8));
 
+            try {
+                // 睡眠 30 s
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            // 手动应答
+            channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+
         };
 
         // 声明消费者取消消费的回调
@@ -39,6 +49,6 @@ public class Consumer2 {
             System.out.println("consumerTag = " + consumerTag);
         };
 
-        channel.basicConsume(QUEUE_NAME, true, deliverCallback, cancelCallback);
+        channel.basicConsume(QUEUE_NAME, false, deliverCallback, cancelCallback);
     }
 }

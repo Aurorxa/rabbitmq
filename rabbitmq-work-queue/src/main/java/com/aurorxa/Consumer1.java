@@ -32,6 +32,7 @@ public class Consumer1 {
             System.out.println("消费者1 消费的 message = " + new String(message.getBody(), StandardCharsets.UTF_8));
 
             try {
+                // 睡眠 1 s
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
