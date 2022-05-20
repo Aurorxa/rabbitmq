@@ -23,7 +23,7 @@ public class Consumer {
         // 创建连接工厂
         ConnectionFactory connectionFactory = new ConnectionFactory();
         // 设置连接 RabbitMQ 的信息
-        connectionFactory.setHost("192.168.65.137");
+        connectionFactory.setHost("127.0.0.1");
         connectionFactory.setVirtualHost("/");
         connectionFactory.setPort(5672);
         connectionFactory.setUsername("guest");
@@ -45,10 +45,7 @@ public class Consumer {
             System.out.println("consumerTag = " + consumerTag);
         };
 
-        // 第一个参数：队列的名称
-        // 第二个参数：是否自动确认
-        // 第三个参数：消费者成功消费的回调
-        // 第四个参数：消费者取消消费的回调
+
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, cancelCallback);
 
         // 关闭信道

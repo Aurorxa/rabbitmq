@@ -17,6 +17,21 @@
 
     <modules>
         <module>rabbitmq-hello-world</module>
+        <module>rabbitmq-work-queue</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>spring</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
 </project>
