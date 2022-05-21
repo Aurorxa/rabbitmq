@@ -25,6 +25,10 @@ public class Consumer2 {
 
         Channel channel = RabbitmqUtils.getChannel();
 
+        // 消费者设置不公平分发
+        int prefetchCount = 1;
+        channel.basicQos(prefetchCount);
+
         channel.queueDeclare(QUEUE_NAME, true, false, false, MapUtil.newHashMap());
 
         DeliverCallback deliverCallback = (consumerTag, message) -> {
