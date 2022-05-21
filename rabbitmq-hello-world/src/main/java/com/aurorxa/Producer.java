@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +51,7 @@ public class Producer {
         // 发送消息
         String msg = "你好啊";
 
-        channel.basicPublish("", QUEUE_NAME, null, msg.getBytes(StandardCharsets.UTF_8));
+        channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
 
         System.out.println("消息发送完毕");
 
