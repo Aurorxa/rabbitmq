@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.rabbitmq.client.Channel;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 /**
  * 生产者
@@ -21,10 +22,13 @@ public class Producer {
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitmqUtils.getChannel();
 
-        channel.queueDeclare(QUEUE_NAME, true, false, false, MapUtil.newHashMap());
+        // 队列持久化
+        boolean durable = true;
+        channel.queueDeclare(QUEUE_NAME, durable, false, false, MapUtil.newHashMap());
 
-        for (int i = 0; i < 100; i++) {
-            String msg = "你好啊 " + i;
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            String msg = scanner.next();
             channel.basicPublish("", QUEUE_NAME, null, msg.getBytes(StandardCharsets.UTF_8));
         }
 
