@@ -2,6 +2,7 @@ package com.aurorxa;
 
 import cn.hutool.core.map.MapUtil;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -29,7 +30,9 @@ public class Producer {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String msg = scanner.next();
-            channel.basicPublish("", QUEUE_NAME, null, msg.getBytes(StandardCharsets.UTF_8));
+
+            // MessageProperties.PERSISTENT_TEXT_PLAIN 消息持久化
+            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes(StandardCharsets.UTF_8));
         }
 
         System.out.println("消息发送完毕");
