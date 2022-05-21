@@ -28,8 +28,8 @@ public class Consumer1 {
 
         DeliverCallback deliverCallback = (consumerTag, message) -> {
             try {
-                // 睡眠 10 s
-                Thread.sleep(10 * 1000);
+                // 睡眠 1 s
+                Thread.sleep(1 * 1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
