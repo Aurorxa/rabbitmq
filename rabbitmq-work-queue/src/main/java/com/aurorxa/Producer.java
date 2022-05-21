@@ -23,7 +23,7 @@ public class Producer {
 
         channel.queueDeclare(QUEUE_NAME, true, false, false, MapUtil.newHashMap());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             String msg = "你好啊 " + i;
             channel.basicPublish("", QUEUE_NAME, null, msg.getBytes(StandardCharsets.UTF_8));
         }
