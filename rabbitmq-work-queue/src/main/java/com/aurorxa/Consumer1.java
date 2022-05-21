@@ -26,29 +26,28 @@ public class Consumer1 {
 
         channel.queueDeclare(QUEUE_NAME, true, false, false, MapUtil.newHashMap());
 
-        // 声明消费者成功消费的回调
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("consumerTag = " + consumerTag);
-            System.out.println("消费者1 消费的 message = " + new String(message.getBody(), StandardCharsets.UTF_8));
-
             try {
-                // 睡眠 1 s
-                Thread.sleep(1000);
+                // 睡眠 10 s
+                Thread.sleep(10 * 1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
+            System.out.println("消费者1 消费的 message = " + new String(message.getBody(), StandardCharsets.UTF_8));
+
             // 第一个参数：消息的标记
             // 第二个参数：不批量
             channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
 
         };
 
-        // 声明消费者取消消费的回调
         CancelCallback cancelCallback = (consumerTag) -> {
             System.out.println("consumerTag = " + consumerTag);
         };
 
         // 设置为手动应答
-        channel.basicConsume(QUEUE_NAME, false, deliverCallback, cancelCallback);
+        boolean autoAck = false;
+        channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, cancelCallback);
     }
 }
