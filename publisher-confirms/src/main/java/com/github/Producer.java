@@ -1,4 +1,4 @@
-package com.aurorxa;
+package com.github;
 
 import cn.hutool.core.map.MapUtil;
 import com.rabbitmq.client.Channel;

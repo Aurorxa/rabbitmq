@@ -18,6 +18,7 @@
     <modules>
         <module>rabbitmq-hello-world</module>
         <module>rabbitmq-work-queue</module>
+        <module>publisher-confirms</module>
     </modules>
 
     <repositories>
