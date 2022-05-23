@@ -21,6 +21,7 @@
         <module>publisher-confirms</module>
         <module>rabbitmq-fanout</module>
         <module>rabbitmq-direct</module>
+        <module>rabbitmq-topic</module>
     </modules>
 
     <repositories>
