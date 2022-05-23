@@ -22,6 +22,7 @@ public class Producer {
         // 声明交换机
         channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
 
+        // 发送消息
         channel.basicPublish(EXCHANGE_NAME, "", null, "你好啊".getBytes(StandardCharsets.UTF_8));
 
         System.out.println("消息发送完毕");
