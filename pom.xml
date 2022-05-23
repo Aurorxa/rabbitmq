@@ -19,6 +19,7 @@
         <module>rabbitmq-hello-world</module>
         <module>rabbitmq-work-queue</module>
         <module>publisher-confirms</module>
+        <module>rabbitmq-fanout</module>
     </modules>
 
     <repositories>
