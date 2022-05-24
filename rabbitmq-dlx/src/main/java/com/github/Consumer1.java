@@ -3,9 +3,7 @@ package com.github;
 import cn.hutool.core.map.MapUtil;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.DeliverCallback;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
@@ -56,26 +54,22 @@ public class Consumer1 {
         // 声明普通队列
         HashMap<String, Object> arguments = MapUtil.newHashMap();
         // 设置过期时间，实际开发中，可以在生产者那边设置，更加灵活
-        arguments.put("x-message-ttl", 10 * 1000);
+        // arguments.put("x-message-ttl", 10 * 1000);
         // 设置死信交换机
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
         // 设置死信 routing key ，因为此时的普通队列相当于生产者（生产者需要知道死信队列的交换机和死信队列的 routing key）
         arguments.put("x-dead-letter-routing-key", DEAD_ROUTING_KEY);
+        // 设置正常队列的长度限制
+        // arguments.put("x-max-length", 6);
         channel.queueDeclare(NORMAL_QUEUE, true, false, false, arguments);
         // 死信队列
         channel.queueDeclare(DEAD_QUEUE, true, false, false, null);
 
         // 绑定交换机和队列
-        channel.queueBind(NORMAL_QUEUE,NORMAL_EXCHANGE , NORMAL_ROUTING_KEY);
+        channel.queueBind(NORMAL_QUEUE, NORMAL_EXCHANGE, NORMAL_ROUTING_KEY);
         channel.queueBind(DEAD_QUEUE, DEAD_EXCHANGE, DEAD_ROUTING_KEY);
 
-        System.out.println("----------- 消费者1 等待接收消息 -----------");
-
-        // 消费
-        DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("消费者1 消费的消息 = " + new String(message.getBody(), StandardCharsets.UTF_8));
-        };
-        channel.basicConsume(NORMAL_QUEUE, true, deliverCallback, (consumerTag) -> {});
+        System.out.println("----------- 绑定关系完成 -----------");
 
     }
 }
