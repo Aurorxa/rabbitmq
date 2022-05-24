@@ -48,7 +48,7 @@ public class TtlQueueConfig {
      */
     @Bean("xExchange")
     public DirectExchange xExchange() {
-        return new DirectExchange(EXCHANGE_X, true, false, null);
+        return new DirectExchange(EXCHANGE_X);
     }
 
     /**
@@ -56,7 +56,7 @@ public class TtlQueueConfig {
      */
     @Bean("yExchange")
     public DirectExchange yExchange() {
-        return new DirectExchange(EXCHANGE_DEAD_Y, true, false, null);
+        return new DirectExchange(EXCHANGE_DEAD_Y);
     }
 
     /**
