@@ -9,33 +9,24 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author 许大仙
  * @version 1.0
- * @since 2022-05-24 10:20:12
+ * @since 2022-05-25 09:30:23
  */
 public class Producer {
-
-    /**
-     * 普通交换机的名称
-     */
-    public static final String NORMAL_EXCHANGE = "normal_exchange";
-
-    /**
-     * routing key
-     */
-    public static final String NORMAL_ROUTING_KEY = "normal";
 
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitmqUtils.getChannel();
 
-        // 声明交换机
-        channel.exchangeDeclare(NORMAL_EXCHANGE, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(Consumer1.NORMAL_EXCHANGE, BuiltinExchangeType.DIRECT);
 
-        System.out.println("生产者发送消息");
-        // 发送消息
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             String msg = "消息" + i;
-            // 设置 TTL 时间
-            AMQP.BasicProperties basicProperties = new AMQP.BasicProperties().builder().expiration("100000").build();
-            channel.basicPublish(NORMAL_EXCHANGE, NORMAL_ROUTING_KEY, basicProperties, msg.getBytes(StandardCharsets.UTF_8));
+            // 为什么要此处设置 TTL ，是因为生产者设置 TTL 更加灵活
+            String expiration = String.valueOf(10 * 1000);
+            AMQP.BasicProperties basicProperties = new AMQP.BasicProperties().builder().expiration(expiration).build();
+            channel.basicPublish(Consumer1.NORMAL_EXCHANGE, Consumer1.NORMAL_ROUTING_KEY, basicProperties, msg.getBytes(StandardCharsets.UTF_8));
         }
+
+        System.out.println("发送消息完毕");
+
     }
 }
