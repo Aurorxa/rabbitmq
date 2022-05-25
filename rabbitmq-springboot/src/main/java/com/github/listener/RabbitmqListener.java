@@ -20,7 +20,7 @@ public class RabbitmqListener {
 
     @RabbitListener(queues = RabbitmqConfig.QUEUE)
     public void receive(Message message) {
-        log.info("当前时间：{},,收到延时队列的消息：{}", LocalDateTime.now(), new String(message.getBody(), StandardCharsets.UTF_8));
+        log.info("当前时间：{},收到延时队列的消息：{}", LocalDateTime.now(), new String(message.getBody(), StandardCharsets.UTF_8));
     }
 
 }
