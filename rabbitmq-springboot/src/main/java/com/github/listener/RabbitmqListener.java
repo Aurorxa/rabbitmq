@@ -1,5 +1,6 @@
 package com.github.listener;
 
+import com.github.config.RabbitmqConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -11,16 +12,15 @@ import java.time.LocalDateTime;
 /**
  * @author 许大仙
  * @version 1.0
- * @since 2022-05-24 15:36:31
+ * @since 2022-05-25 14:20:14
  */
 @Slf4j
 @Component
-public class DeadLetterQueueConsumer {
+public class RabbitmqListener {
 
-    @RabbitListener(queues = "QD")
+    @RabbitListener(queues = RabbitmqConfig.QUEUE)
     public void receive(Message message) {
-        String msg = new String(message.getBody(), StandardCharsets.UTF_8);
-        log.info("当前时间是：{}，收到死信队列的消息是：{}", LocalDateTime.now(), msg);
+        log.info("当前时间：{},,收到延时队列的消息：{}", LocalDateTime.now(), new String(message.getBody(), StandardCharsets.UTF_8));
     }
 
 }
