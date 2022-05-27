@@ -1,6 +1,5 @@
 package com.github.web;
 
-import com.github.config.RabbitmqConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -33,7 +32,7 @@ public class ProducerController {
             message.getMessageProperties().setDelay(ttl);
             return message;
         };
-        rabbitTemplate.convertAndSend(RabbitmqConfig.EXCHANGE, RabbitmqConfig.ROUTING_KEY, msg, messagePostProcessor);
+        // rabbitTemplate.convertAndSend(RabbitmqConfig.EXCHANGE, RabbitmqConfig.ROUTING_KEY, msg, messagePostProcessor);
         return "发送消息成功";
     }
 

@@ -1,6 +1,6 @@
 package com.github.listener;
 
-import com.github.config.RabbitmqConfig;
+import com.github.config.ConfirmConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Component
 public class RabbitmqListener {
 
-    @RabbitListener(queues = RabbitmqConfig.QUEUE)
+    @RabbitListener(queues = ConfirmConfig.QUEUE_NAME)
     public void receive(Message message) {
         log.info("当前时间：{},收到延时队列的消息：{}", LocalDateTime.now(), new String(message.getBody(), StandardCharsets.UTF_8));
     }
