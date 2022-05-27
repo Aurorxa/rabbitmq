@@ -6,4 +6,4 @@ spring:
     password: guest
     virtual-host: /
     # correlated 发布消息成功到交换机后会触发回调方法
-#    publisher-confirm-type: correlated
+    publisher-confirm-type: correlated

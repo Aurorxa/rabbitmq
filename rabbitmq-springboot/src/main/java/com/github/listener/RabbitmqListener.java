@@ -7,7 +7,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 
 /**
  * @author 许大仙
@@ -20,7 +19,8 @@ public class RabbitmqListener {
 
     @RabbitListener(queues = ConfirmConfig.QUEUE_NAME)
     public void receive(Message message) {
-        log.info("当前时间：{},收到延时队列的消息：{}", LocalDateTime.now(), new String(message.getBody(), StandardCharsets.UTF_8));
+        String msg = new String(message.getBody(), StandardCharsets.UTF_8);
+        log.info("接收到的消息是：{}", msg);
     }
 
 }
