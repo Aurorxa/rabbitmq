@@ -4,6 +4,7 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Value
-// @Component
+@Component
 public class ConfirmCallback implements RabbitTemplate.ConfirmCallback {
 
     RabbitTemplate rabbitTemplate;
