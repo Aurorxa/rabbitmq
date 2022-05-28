@@ -31,15 +31,14 @@ public class ConfirmController {
     public String sendMsg(@PathVariable String msg) {
         log.info("发送的消息是：{}", msg);
         String id = "1";
-        // 如果不传递 id ，则会自动生成 id ，推荐使用业务的主键等
         CorrelationData correlationData = new CorrelationData(id);
         // 发送消息
         rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME, ConfirmConfig.CONFIRM_ROUTING_KEY, msg.getBytes(StandardCharsets.UTF_8), correlationData);
 
+        // 注意：消息2 的路由不可达
         id = "2";
-        // 如果不传递 id ，则会自动生成 id ，推荐使用业务的主键等
         correlationData = new CorrelationData(id);
-        rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME + "2", ConfirmConfig.CONFIRM_ROUTING_KEY, msg.getBytes(StandardCharsets.UTF_8), correlationData);
+        rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME, ConfirmConfig.CONFIRM_ROUTING_KEY + id, msg.getBytes(StandardCharsets.UTF_8), correlationData);
 
         return "发送消息";
     }

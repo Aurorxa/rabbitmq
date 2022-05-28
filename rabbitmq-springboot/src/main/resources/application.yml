@@ -6,3 +6,4 @@ spring:
     password: guest
     virtual-host: /
     publisher-confirm-type: correlated # 消息发送到交换机会触发回调方法
+    publisher-returns: true # 是否开启生产者消息回退功能，队列中的消息不可路由回退到生产者
