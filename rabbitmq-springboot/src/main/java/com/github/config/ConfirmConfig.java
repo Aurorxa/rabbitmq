@@ -15,24 +15,24 @@ public class ConfirmConfig {
     /**
      * 交换机名称
      */
-    public static final String EXCHANGE_NAME = "confirm.exchange";
+    public static final String CONFIRM_EXCHANGE_NAME = "confirm.exchange";
 
     /**
      * 队列的名称
      */
-    public static final String QUEUE_NAME = "confirm.queue";
+    public static final String CONFIRM_QUEUE_NAME = "confirm.queue";
 
     /**
      * routing_key
      */
-    public static final String ROUTING_KEY = "confirm";
+    public static final String CONFIRM_ROUTING_KEY = "confirm";
 
     /**
      * 配置交换机
      */
     @Bean
     public DirectExchange confirmExchange() {
-        return new DirectExchange(EXCHANGE_NAME);
+        return new DirectExchange(CONFIRM_EXCHANGE_NAME);
     }
 
     /**
@@ -40,7 +40,7 @@ public class ConfirmConfig {
      */
     @Bean
     public Queue confirmQueue() {
-        return QueueBuilder.durable(QUEUE_NAME).build();
+        return QueueBuilder.durable(CONFIRM_QUEUE_NAME).build();
     }
 
     /**
@@ -48,7 +48,7 @@ public class ConfirmConfig {
      */
     @Bean
     public Binding confirmBinding() {
-        return BindingBuilder.bind(confirmQueue()).to(confirmExchange()).with(ROUTING_KEY);
+        return BindingBuilder.bind(confirmQueue()).to(confirmExchange()).with(CONFIRM_ROUTING_KEY);
     }
 
 

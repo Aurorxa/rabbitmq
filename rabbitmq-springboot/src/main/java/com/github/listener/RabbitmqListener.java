@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class RabbitmqListener {
 
-    @RabbitListener(queues = ConfirmConfig.QUEUE_NAME)
+    @RabbitListener(queues = ConfirmConfig.CONFIRM_QUEUE_NAME)
     public void receive(Message message) {
         String msg = new String(message.getBody(), StandardCharsets.UTF_8);
         log.info("接收到的消息是：{}", msg);

@@ -34,7 +34,7 @@ public class ConfirmController {
         // 如果不传递 id ，则会自动生成 id ，推荐使用业务的主键等
         CorrelationData correlationData = new CorrelationData(id);
         // 发送消息
-        rabbitTemplate.convertAndSend(ConfirmConfig.EXCHANGE_NAME, ConfirmConfig.ROUTING_KEY, msg.getBytes(StandardCharsets.UTF_8), correlationData);
+        rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME, ConfirmConfig.CONFIRM_ROUTING_KEY, msg.getBytes(StandardCharsets.UTF_8), correlationData);
 
         return "发送消息";
     }
