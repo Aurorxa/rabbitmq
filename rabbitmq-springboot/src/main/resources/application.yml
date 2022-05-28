@@ -5,7 +5,4 @@ spring:
     username: guest
     password: guest
     virtual-host: /
-    # correlated 发布消息成功到交换机后会触发回调方法
-    publisher-confirm-type: correlated
-    # 发布退回
-    publisher-returns: true
+    publisher-confirm-type: correlated # 消息发送到交换机会触发回调方法
