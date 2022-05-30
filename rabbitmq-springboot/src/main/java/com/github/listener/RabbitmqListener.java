@@ -23,4 +23,10 @@ public class RabbitmqListener {
         log.info("接收到的消息是：{}", msg);
     }
 
+    @RabbitListener(queues = ConfirmConfig.BACKUP_QUEUE_NAME)
+    public void receiveBackup(Message message) {
+        String msg = new String(message.getBody(), StandardCharsets.UTF_8);
+        log.info("备份队列接收到的消息是：{}", msg);
+    }
+
 }
