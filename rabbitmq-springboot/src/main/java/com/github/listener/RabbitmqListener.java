@@ -60,11 +60,10 @@ public class RabbitmqListener {
         }
     }
 
-    @RabbitListener(queues = ConfirmConfig.DEAD_QUEUE_NAME)
-    public void receiveDead(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
+    @RabbitListener(queues = ConfirmConfig.DEAD_QUEUE_NAME, ackMode = "AUTO")
+    public void receiveDead(Message message) throws IOException {
         String msg = new String(message.getBody(), StandardCharsets.UTF_8);
         log.info("死信队列接收到的消息是：{}", msg);
-        channel.basicAck(tag, false);
     }
 
 }
