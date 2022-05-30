@@ -21,10 +21,6 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class RabbitmqListener {
 
-
-    // 重试次数
-    private int retryCount = 0;
-
     /**
      * 如果是重试机制，就不能使用 try-catch 捕获，否则重试机制将失效。
      * 如果是自动 ack ，多次重试还是失败，消息就会自动确认，消息就会丢失；
@@ -45,18 +41,8 @@ public class RabbitmqListener {
             // 确认消息
             channel.basicAck(tag, false);
         } catch (Exception e) {
-            retryCount++;
-            log.info("重试次数：{}", retryCount);
-            // 处理业务失败，还要进行其他操作，比如记录失败原因
-            log.info("记录失败原因 ====>");
-            // 抛出异常，触发重试机制
-            throw e;
-        } finally {
-            // 重试次数达到限制
-            if (retryCount == 5) {
-                log.info("消息异常，nack 消息到死信队列");
-                channel.basicNack(tag, false, false);
-            }
+            log.info("消息异常，nack 消息到死信队列");
+            channel.basicNack(tag, false, false);
         }
     }
 
