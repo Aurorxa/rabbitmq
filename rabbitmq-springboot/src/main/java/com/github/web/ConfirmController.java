@@ -34,12 +34,6 @@ public class ConfirmController {
         CorrelationData correlationData = new CorrelationData(id);
         // 发送消息
         rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME, ConfirmConfig.CONFIRM_ROUTING_KEY, msg.getBytes(StandardCharsets.UTF_8), correlationData);
-
-        // 注意：消息2 的路由不可达
-        id = "2";
-        correlationData = new CorrelationData(id);
-        rabbitTemplate.convertAndSend(ConfirmConfig.CONFIRM_EXCHANGE_NAME, ConfirmConfig.CONFIRM_ROUTING_KEY + id, msg.getBytes(StandardCharsets.UTF_8), correlationData);
-
         return "发送消息";
     }
 
