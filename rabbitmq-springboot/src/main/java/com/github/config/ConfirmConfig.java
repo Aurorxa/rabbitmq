@@ -66,6 +66,8 @@ public class ConfirmConfig {
         return QueueBuilder.durable(CONFIRM_QUEUE_NAME)
                 .deadLetterExchange(DEAD_EXCHANGE_NAME)
                 .deadLetterRoutingKey(DEAD_ROUTING_KEY)
+                // 设置惰性队列
+                .lazy()
                 .build();
     }
 
