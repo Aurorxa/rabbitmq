@@ -25,9 +25,9 @@ public class ReturnCallback implements RabbitTemplate.ReturnsCallback {
     public void init() {
         rabbitTemplate.setReturnsCallback(this);
         /*
-        * 如果 mandatory = true ，表示交换机在无法将消息进行路由的时候，会将该消息返回给生产者。
-        * 如果 mandatory = false ，表示发现消息无法进行路由，则直接丢失。
-        * */
+        * ① 如果 mandatory = true ，表示交换机在无法将消息进行路由的时候，会将该消息返回给生产者。
+        * ② 如果 mandatory = false ，表示发现消息无法进行路由，则直接丢失。
+        */
         rabbitTemplate.setMandatory(true);
     }
 
